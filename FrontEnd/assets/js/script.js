@@ -10,6 +10,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     // Chargement catégories
     await getCategories();
-  
+    // Gestion utilisateur connecté
+    checkUserConnected();
+
     
   }

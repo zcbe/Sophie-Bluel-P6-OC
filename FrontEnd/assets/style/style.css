@@ -135,6 +135,14 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+	text-align: center;
+	
+}
+
+.portfolio__title {
+	align-items: center;
+	display: flex;
+	justify-content: center;
 }
 .gallery {
 	width: 100%;
@@ -223,3 +231,31 @@ footer nav ul {
 	color: white;
 	background-color: #1D6154;
 }
+
+
+
+/* Mode Edition */
+#navEdition {
+	align-items: center;
+	background: black;
+	width: 100vw;
+	display: flex;
+	gap: 21px;
+	height: 59px;
+	justify-content: center;
+	margin-left: -150px;
+
+}
+
+.modEdition {
+	color: white;
+}
+
+.buttonModify {
+	margin-left: 57px;
+	color: black;
+	cursor: pointer;
+	display: flex;
+	margin-top: -25px;
+}
+
