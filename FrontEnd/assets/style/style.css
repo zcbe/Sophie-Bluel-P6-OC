@@ -272,6 +272,7 @@ footer nav ul {
 
 .modal__container.active {
 	display: block;
+	margin-left: -150px;
 }
 
 .overlay {
