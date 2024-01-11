@@ -39,3 +39,75 @@
         modalOne.style.display = "flex"; // Affiche modale "Galerie photo"
         modalTwo.style.display = "none"; // Masque modale "Ajout photo"
     };
+
+// Récupération des travaux pour la modale 
+async function getWorksModal() {
+    fetch("http://localhost:5678/api/works")
+    .then(response => response.json())
+    .then(dataWorksModal => {
+        // Sélection de la div qui va contenir les données récupérées via l'API
+        const galleryModal = document.querySelector(".modal__one-gallery"); 
+        galleryModal.innerHTML = "";
+        // Création des travaux via les données récupérées
+        dataWorksModal.forEach((workModal) => {
+            // Création des éléments nécessaires
+            const cardModal = document.createElement("figure");
+            const imgCardModal = document.createElement("img");
+            const titleCardModal = document.createElement("figcaption");
+            // On récupère les données importantes pour afficher les travaux
+            cardModal.setAttribute('id', workModal.id)
+            imgCardModal.src = workModal.imageUrl;
+            imgCardModal.alt = workModal.title;
+            imgCardModal.setAttribute('category', workModal.categoryId);
+         
+            // Ajout de l'icône de suppression d'un projet
+          
+        
+            const deleteButton = document.createElement('button');
+            deleteButton.type = "submit";
+            deleteButton.id= "delete"
+            deleteButton.classList.add('deleteButton');
+            deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            // Evènement au clic pour supprimer un projet
+            deleteButton.addEventListener("click", async (event) => {
+                event.preventDefault();
+                if (confirm("Voulez-vous supprimer le projet ?")) {
+                    const id = cardModal.id;
+                    /* Test de récupération de l'id du projet
+                    console.log(id);
+                    */
+                    const monToken = localStorage.getItem("token");
+                    // Envoi de la demande à l'API pour supprimer le projet
+                    try {
+                        const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'accept': '*/*',
+                            'Authorization': `Bearer ${monToken}`,
+                        }
+                    });
+                    // Si la réponse est ok, on recharge les galeries
+                    if (response.ok) {
+                        getWorks();
+                        getWorksModal();
+                    } else {
+                        // Sinon on alerte l'utilisateur d'une erreur 
+                        alert("Echec de la suppresion du projet...")
+                    }
+                    } catch (error) {
+                        console.log("Une erreur est survenue", error);
+                    };
+                } else {
+                    alert("Le projet n'a pas été supprimé");
+                };
+            });
+            // On relie les éléments img et title à leur parent card
+            cardModal.appendChild(imgCardModal);
+            cardModal.appendChild(titleCardModal);
+            cardModal.appendChild(deleteButton);
+            // On relie la card à la balise div qui contient la galerie
+            galleryModal.appendChild(cardModal);
+        });
+});     
+};
+

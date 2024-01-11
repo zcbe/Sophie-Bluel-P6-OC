@@ -12,6 +12,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
     await getCategories();
     // Gestion utilisateur connecté
     checkUserConnected();
-
+    // Chargement travaux modale
+  getWorksModal();
+  
     
   }
