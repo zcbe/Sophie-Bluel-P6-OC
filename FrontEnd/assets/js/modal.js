@@ -121,7 +121,7 @@ function getWorksModal() {
     const categoryProject = document.getElementById("photoCategories");
     const validateProject = document.getElementById("validateProject");
     // Message d'erreur
-    let errorForm = document.getElementById("errorForm");
+    const errorForm = document.getElementById("errorForm");
     // Prévisualisation d'une photo
     inputImage.addEventListener("change", previewPicture);
     function previewPicture(event) {
@@ -193,9 +193,10 @@ function getWorksModal() {
     function verifForm() {
         const minLengthTitle =3;
         if (titleProject.value.length >=minLengthTitle && categoryProject.value !== "" && inputImage.value !== ""){
-            validateProject.classList.toggle("active");
+            validateProject.classList.add("active");
             errorForm.style.display = 'none';
         } else {
+            validateProject.classList.remove("active");
             errorForm.innerText = "Veuillez renseigner tous les champs";
         }
     };
